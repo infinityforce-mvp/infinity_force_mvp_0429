@@ -10,8 +10,9 @@ import { fetchWorldCupUserInfo } from '../../lib/api';
 import { useIsMounted } from '../../hooks/useIsMounted';
 import HolderItem from '../../components/qatar/HolderItem';
 import Prediction from '../../components/qatar/Prediction';
+import withWalletGuard from '@/components/withWalletGuard';
 
-export default function Qatar2022() {
+const Qatar2022: React.FC = () => {
   const { address } = useAccount();
   const isMounted = useIsMounted();
   useExternal('https://widget.gleamjs.io/e.js', { type: 'js', js: { async: true } });
@@ -106,3 +107,5 @@ export default function Qatar2022() {
     </>
   );
 }
+
+export default withWalletGuard(Qatar2022);

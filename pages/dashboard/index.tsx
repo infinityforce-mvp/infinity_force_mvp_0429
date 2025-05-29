@@ -4,12 +4,13 @@ import Developer from '@/components/dashboard/Developer';
 import Gamer from '@/components/dashboard/Gamer';
 import SteamDeveloperSBT from '@/components/dashboard/sbt/SteamDeveloperSBT';
 import SteamGamerSBT from '@/components/dashboard/sbt/SteamGamerSBT';
+import withWalletGuard from '@/components/withWalletGuard';
 import { usePageTabSelected } from '@/hooks/dashboard/usePageTabSelected';
 import { userPowerLevelAtom } from '@/store/dashboard/state';
 import { digitalFormat } from '@/utils/format';
 import { useRecoilValue } from 'recoil';
 
-export default function Dashboard() {
+const Dashboard: React.FC = () => {
   const { arcanaPL, steamGamerPL, steamDeveloperPL } = useRecoilValue(userPowerLevelAtom);
   const { index, onSelect } = usePageTabSelected();
 
@@ -64,3 +65,5 @@ export default function Dashboard() {
     </div>
   );
 }
+
+export default withWalletGuard(Dashboard);

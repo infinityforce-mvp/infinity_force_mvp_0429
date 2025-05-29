@@ -22,8 +22,9 @@ import { gamerGamesAtom, gamerInfoAtom } from '@/store/gamer/state';
 import GamerClaimSuccess from '@/components/dialog/GamerClaimSuccess';
 import { InviteRecordDialog } from '@/components/dialog/InviteRecordDialog';
 import PermissionSettingDialog from '@/components/dialog/PermissionSettingDialog';
+import withWalletGuard from '@/components/withWalletGuard';
 
-export default function Gamer() {
+const Gamer: React.FC = () => {
   const router = useRouter();
   const { address } = useAccount();
   const setOpen = useSetRecoilState(roadmapModalAtom);
@@ -190,3 +191,4 @@ export default function Gamer() {
     </div>
   );
 }
+export default withWalletGuard(Gamer);

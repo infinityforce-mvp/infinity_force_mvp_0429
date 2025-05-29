@@ -4,7 +4,7 @@ import QRCode from 'qrcode';
 import { useAccount } from 'wagmi';
 import classNames from 'classnames';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import html2canvas from './html2canvas.min';
+import html2canvas from 'html2canvas';
 import { posterCaptureAtom, posterStylesAtom } from '@/store/poster/state';
 import { formatMinutes, getSteamGameImage, shortenSteamId } from '@/utils';
 import { GenesisRarity, GenesisClaim } from '@/constants';
@@ -48,21 +48,26 @@ export default function PosterCanvas({ gamerInfo, gamerGames }: { gamerInfo?: Ga
     QRCode.toDataURL(window.location.origin + '/?code=' + referralCode, { margin: 2 }).then((url: string) => setQrCode(url));
   }, [referralCode]);
 
-  useEffect(() => {
-    const capture: HTMLElement | null = document.querySelector('#poster-capture');
-    console.log("*****************************************************************************************************")
-    html2canvas(capture, {
-      useCORS: true,
-      allowTaint: true,
-      scale: 1,
-      logging: false,
-    }).then((canvas: HTMLCanvasElement) => {
-      const img = canvas.toDataURL('image/jpeg', 0.85);
-      setPosterCapture(img);
-    });
-    if (!capture || !gamerGames) return;
-    if (gamerInfo?.nft_claim !== GenesisClaim.Claimed || gamerInfo?.nft_level === GenesisRarity.Rekt) return;
-  }, [gamerGames, gamerInfo?.nft_claim, gamerInfo?.nft_level, setPosterCapture]);
+useEffect(() => {
+  const capture = document.querySelector('#poster-capture') as HTMLElement | null;
+
+  if (!capture || !gamerGames) return;
+  if (gamerInfo?.nft_claim !== GenesisClaim.Claimed || gamerInfo?.nft_level === GenesisRarity.Rekt) return;
+
+  console.log("📸 Capturing #poster-capture");
+
+  html2canvas(capture, {
+    useCORS: true,
+    allowTaint: true,
+    scale: 1,
+    logging: false,
+  }).then((canvas: HTMLCanvasElement) => {
+    const img = canvas.toDataURL('image/jpeg', 0.85);
+    setPosterCapture(img);
+  }).catch((err) => {
+    console.error('html2canvas failed:', err);
+  });
+}, [gamerGames, gamerInfo?.nft_claim, gamerInfo?.nft_level, setPosterCapture]);
 
   if (gamerInfo?.nft_claim !== GenesisClaim.Claimed || gamerInfo?.nft_level === GenesisRarity.Rekt) return null;
 
