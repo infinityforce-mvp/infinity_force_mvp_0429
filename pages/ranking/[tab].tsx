@@ -8,8 +8,9 @@ import Back from '../../components/back';
 import SocialMedia from '../../components/socialMedia';
 import DeveloperRanking from '../../components/ranking/Developer';
 import GamerRanking from '../../components/ranking/Gamer';
+import withWalletGuard from '@/components/withWalletGuard';
 
-export default function Ranking(props: { tabIndex: number }) {
+const Ranking = (props: { tabIndex: number }) => {
   const router = useRouter();
   const [layoutId, setLayoutId] = useRecoilState(rankingLayoutIdAtom);
   const [selectedTab, setSelectedTab] = useState(props.tabIndex);
@@ -39,7 +40,7 @@ export default function Ranking(props: { tabIndex: number }) {
             }}
             selectedIndex={selectedTab}
           >
-            <TabList>
+            <TabList> 
               <Tab>
                 Gamer
                 <div className="react-tabs__tab--underline">{selectedTab === 0 && <motion.div layoutId="dev_underline" />}</div>
@@ -79,3 +80,4 @@ export async function getStaticProps({ params }: { params: { tab: 'gamer' | 'dev
     revalidate: 60 * 60 * 24,
   };
 }
+export default withWalletGuard(Ranking); // Assuming you have a withWalletGuard HOC to protect the page

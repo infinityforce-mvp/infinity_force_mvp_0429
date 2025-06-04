@@ -12,8 +12,9 @@ import { claimGroupSelector, tabSelectAtom } from '../../store/developer/state';
 import { GenesisClaim } from '../../constants';
 import { useAccount } from 'wagmi';
 import { useDeveloperInfo } from '@/hooks/developer';
+import withWalletGuard from '@/components/withWalletGuard';
 
-export default function Developer() {
+const Developer: React.FC = () => {
   const { address } = useAccount();
   useDeveloperInfo(address);
   const router = useRouter();
@@ -58,3 +59,5 @@ export default function Developer() {
     </div>
   );
 }
+
+export default withWalletGuard(Developer);

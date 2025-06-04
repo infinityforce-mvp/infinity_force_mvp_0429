@@ -23,8 +23,9 @@ import SwiperInviteVote from '../../components/arcana/SwiperInviteVote';
 
 import 'swiper/css';
 import 'swiper/css/autoplay';
+import withWalletGuard from '@/components/withWalletGuard';
 
-export default function Arcana() {
+const Arcana: React.FC = () => {
   const { address } = useAccount();
   const isMounted = useIsMounted();
   const { query } = useRouter();
@@ -181,3 +182,4 @@ export default function Arcana() {
     </>
   );
 }
+export default withWalletGuard(Arcana);
