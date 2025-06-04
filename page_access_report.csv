@@ -1,0 +1,15 @@
+Route,File,Access
+/404,pages\404.tsx,Public
+/arcana/[[...address]],pages\arcana\[[...address]].tsx,After-login
+/auth/steam,pages\auth\steam.tsx,Public
+/bridge/,pages\bridge\index.tsx,Public
+/collab/qatar2022,pages\collab\qatar2022.tsx,After-login
+/collab/[id],pages\collab\[id].tsx,Public
+/dashboard/,pages\dashboard\index.tsx,After-login
+/developer/,pages\developer\index.tsx,After-login
+/gamer/,pages\gamer\index.tsx,After-login
+/gamer/[address],pages\gamer\[address].tsx,Public
+/,pages\index.tsx,Public
+/ranking/[tab],pages\ranking\[tab].tsx,After-login
+/_app,pages\_app.tsx,Public
+/_document,pages\_document.tsx,Public
